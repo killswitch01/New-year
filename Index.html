@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Under the Same Sky</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    background: radial-gradient(circle at top, #1b2b4f, #000814);
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .stars::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: url("https://raw.githubusercontent.com/JulianLaval/canvas-particle-network/master/img/stars.png");
+    opacity: 0.5;
+    animation: moveStars 120s linear infinite;
+  }
+
+  @keyframes moveStars {
+    from { background-position: 0 0; }
+    to { background-position: -10000px 5000px; }
+  }
+
+  .container {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .card {
+    max-width: 520px;
+    animation: fadeIn 2s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  h1, h2 {
+    font-weight: 400;
+  }
+
+  input {
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    width: 80%;
+    margin-top: 15px;
+    font-size: 16px;
+  }
+
+  button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    background: #ff4d6d;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #ff758f;
+  }
+
+  .hearts {
+    position: absolute;
+    top: 15px;
+    width: 100%;
+    text-align: center;
+    font-size: 22px;
+  }
+
+  .hint {
+    margin-top: 10px;
+    font-size: 14px;
+    opacity: 0.8;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .music {
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    opacity: 0.8;
+  }
+
+  .easter {
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+    cursor: pointer;
+    opacity: 0.5;
+  }
+
+  .midnight {
+    margin-top: 25px;
+    font-size: 14px;
+    opacity: 0.8;
+  }
+</style>
+</head>
+
+<body>
+<div class="stars"></div>
+
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_cfa77c5fa7.mp3?filename=romantic-piano-112191.mp3">
+</audio>
+
+<div class="hearts" id="hearts">❤️🤍🤍</div>
+
+<div class="container">
+  <div class="card" id="game"></div>
+</div>
+
+<div class="music" onclick="toggleMusic()">🎵 Music</div>
+<div class="easter" onclick="alert('You always notice the little things. That’s why I fell for you.')">⭐</div>
+
+<script>
+let step = 0;
+const game = document.getElementById("game");
+const hearts = document.getElementById("hearts");
+const music = document.getElementById("music");
+
+render();
+
+function render() {
+  if (step === 0) {
+    game.innerHTML = `
+      <h1>This is not a website.</h1>
+      <p>This is a little journey.<br>Solve what’s simple…<br>Feel what’s real.</p>
+      <button onclick="next()">Begin</button>
+    `;
+  }
+
+  if (step === 1) {
+    hearts.innerText = "❤️🤍🤍";
+    game.innerHTML = `
+      <h2>Riddle 1</h2>
+      <p>
+      I’m not a place you can visit,<br>
+      but I’m where everything started.<br>
+      Two strangers, one message,<br>
+      and suddenly… something felt different.
+      </p>
+      <input id="ans"/>
+      <button onclick="check(['instagram','insta','insta dm'])">Submit</button>
+      <div class="hint">Think about where we began</div>
+    `;
+  }
+
+  if (step === 2) {
+    hearts.innerText = "❤️❤️🤍";
+    game.innerHTML = `
+      <h2>Riddle 2</h2>
+      <p>
+      It’s not your real name,<br>
+      but it feels more real when I say it.<br><br>
+      It’s small, it’s cute,<br>
+      and it’s the name I use only for you.<br><br>
+      What do I call you?
+      </p>
+      <input id="ans"/>
+      <button onclick="check(['chuhi'])">Submit</button>
+      <div class="hint">The name I say when I’m smiling</div>
+    `;
+  }
+
+  if (step === 3) {
+    hearts.innerText = "❤️❤️❤️";
+    game.innerHTML = `
+      <h2>Riddle 3</h2>
+      <p>
+      I get jealous sometimes,<br>
+      but I never stop choosing you.<br><br>
+      When you call me baby,<br>
+      the world goes quiet.<br><br>
+      Say my name.
+      </p>
+      <input id="ans"/>
+      <button onclick="check(['gurveer'])">Submit</button>
+    `;
+  }
+
+  if (step === 4) {
+    setTimeout(()=>music.play(), 2000);
+    game.innerHTML = `
+      <h2>Under the Same Sky</h2>
+      <p style="text-align:left">
+      Under this sky, even when miles sit between us, I feel you close.<br><br>
+
+      This year showed me how one person’s presence can change everything.
+      You didn’t arrive loudly. You stayed gently.<br><br>
+
+      I know I’ve stumbled. Jealousy spoke when it shouldn’t have,
+      not because I doubt you, but because I don’t want to lose you.<br><br>
+
+      Even when we fight. Even when it’s messy.
+      I still choose you.<br><br>
+
+      I promise presence. Consistency.
+      Love that stays.<br><br>
+
+      Happy New Year, Chuhi ❤️<br>
+      — Gurveer
+      </p>
+
+      <button onclick="alert('This is only the beginning ❤️')">Start our new year ❤️</button>
+
+      <div class="midnight" id="midnight"></div>
+    `;
+    checkMidnight();
+  }
+}
+
+function next() {
+  step++;
+  render();
+}
+
+function check(correct) {
+  const val = document.getElementById("ans").value.toLowerCase().trim();
+  if (correct.includes(val)) {
+    step++;
+    render();
+  } else {
+    alert("Almost… think with your heart 💛");
+  }
+}
+
+function toggleMusic() {
+  music.paused ? music.play() : music.pause();
+}
+
+function checkMidnight() {
+  const now = new Date();
+  const midnight = new Date();
+  midnight.setHours(24,0,0,0);
+
+  const diff = midnight - now;
+
+  if (diff <= 0) {
+    document.getElementById("midnight").innerHTML =
+      "✨ It’s midnight. And I still choose you. Always.";
+  } else {
+    setTimeout(checkMidnight, diff);
+  }
+}
+</script>
+</body>
+</html>
