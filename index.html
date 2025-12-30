@@ -1,275 +1,273 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Under the Same Sky</title>
 
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<!-- Premium Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-  body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    color: white;
-    background: radial-gradient(circle at top, #1b2b4f, #000814);
-    height: 100vh;
-    overflow: hidden;
-  }
+* { box-sizing: border-box; }
 
-  .stars::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: url("https://raw.githubusercontent.com/JulianLaval/canvas-particle-network/master/img/stars.png");
-    opacity: 0.5;
-    animation: moveStars 120s linear infinite;
-  }
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  color: #fff;
+  background: #000;
+  overflow-x: hidden;
+}
 
-  @keyframes moveStars {
-    from { background-position: 0 0; }
-    to { background-position: -10000px 5000px; }
-  }
+canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+}
 
-  .container {
-    position: relative;
-    z-index: 2;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 20px;
-  }
+.hearts {
+  position: fixed;
+  top: 16px;
+  width: 100%;
+  text-align: center;
+  font-size: 22px;
+  z-index: 10;
+}
 
-  .card {
-    max-width: 520px;
-    animation: fadeIn 2s ease;
-  }
+.controls {
+  position: fixed;
+  bottom: 18px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 10;
+}
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+.control-btn {
+  cursor: pointer;
+  opacity: 0.85;
+  font-size: 18px;
+}
 
-  h1, h2 {
-    font-weight: 400;
-  }
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
 
-  input {
-    padding: 10px;
-    border-radius: 6px;
-    border: none;
-    width: 80%;
-    margin-top: 15px;
-    font-size: 16px;
-  }
+.card {
+  max-width: 560px;
+  width: 100%;
+  padding: 32px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  animation: fadeUp 1.2s ease;
+}
 
-  button {
-    margin-top: 15px;
-    padding: 10px 20px;
-    border-radius: 20px;
-    border: none;
-    background: #ff4d6d;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-  }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-  button:hover {
-    background: #ff758f;
-  }
+h1,h2,h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+}
 
-  .hearts {
-    position: absolute;
-    top: 15px;
-    width: 100%;
-    text-align: center;
-    font-size: 22px;
-  }
+p {
+  line-height: 1.7;
+  font-size: 16px;
+}
 
-  .hint {
-    margin-top: 10px;
-    font-size: 14px;
-    opacity: 0.8;
-  }
+input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 14px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
 
-  .hidden {
-    display: none;
-  }
+input:focus {
+  box-shadow: 0 0 0 2px rgba(255,77,109,0.6);
+}
 
-  .music {
-    position: absolute;
-    bottom: 15px;
-    right: 20px;
-    font-size: 14px;
-    cursor: pointer;
-    opacity: 0.8;
-  }
+button {
+  margin-top: 18px;
+  padding: 12px 26px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg,#ff4d6d,#ff758f);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
 
-  .easter {
-    position: absolute;
-    bottom: 15px;
-    left: 20px;
-    cursor: pointer;
-    opacity: 0.5;
-  }
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255,77,109,0.4);
+}
 
-  .midnight {
-    margin-top: 25px;
-    font-size: 14px;
-    opacity: 0.8;
-  }
+.feedback {
+  margin-top: 12px;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+
+.modal-content {
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(12px);
+  padding: 24px;
+  border-radius: 14px;
+  max-width: 360px;
+  text-align: center;
+}
 </style>
 </head>
 
 <body>
-<div class="stars"></div>
 
-<audio id="music" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_cfa77c5fa7.mp3?filename=romantic-piano-112191.mp3">
-</audio>
+<canvas id="stars"></canvas>
 
 <div class="hearts" id="hearts">❤️🤍🤍</div>
+
+<div class="controls">
+  <div class="control-btn" onclick="toggleMusic()">🎵</div>
+  <div class="control-btn" onclick="showEgg()">⭐</div>
+</div>
 
 <div class="container">
   <div class="card" id="game"></div>
 </div>
 
-<div class="music" onclick="toggleMusic()">🎵 Music</div>
-<div class="easter" onclick="alert('You always notice the little things. That’s why I fell for you.')">⭐</div>
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_cfa77c5fa7.mp3">
+</audio>
 
 <script>
-let step = 0;
-const game = document.getElementById("game");
-const hearts = document.getElementById("hearts");
-const music = document.getElementById("music");
+/* ⭐ STARFIELD */
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+let w,h,stars=[];
+
+function resize() {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+  stars = Array.from({length:150},()=>({
+    x: Math.random()*w,
+    y: Math.random()*h,
+    r: Math.random()*1.5
+  }));
+}
+window.addEventListener('resize', resize);
+resize();
+
+function draw() {
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle='white';
+  stars.forEach(s=>{
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fill();
+    s.y += 0.15;
+    if(s.y>h) s.y=0;
+  });
+  requestAnimationFrame(draw);
+}
+draw();
+
+/* 🎮 GAME LOGIC */
+let step=0;
+const game=document.getElementById("game");
+const hearts=document.getElementById("hearts");
+const music=document.getElementById("music");
 
 render();
 
-function render() {
-  if (step === 0) {
-    game.innerHTML = `
-      <h1>This is not a website.</h1>
-      <p>This is a little journey.<br>Solve what’s simple…<br>Feel what’s real.</p>
-      <button onclick="next()">Begin</button>
-    `;
-  }
+function render(){
+  const pages=[
+    `<h2>This is not a website.</h2>
+     <p>This is a little journey.<br>Solve what’s simple.<br>Feel what’s real.</p>
+     <button onclick="start()">Begin</button>`,
 
-  if (step === 1) {
-    hearts.innerText = "❤️🤍🤍";
-    game.innerHTML = `
-      <h2>Riddle 1</h2>
-      <p>
-      I’m not a place you can visit,<br>
-      but I’m where everything started.<br>
-      Two strangers, one message,<br>
-      and suddenly… something felt different.
-      </p>
-      <input id="ans"/>
-      <button onclick="check(['instagram','insta','insta dm'])">Submit</button>
-      <div class="hint">Think about where we began</div>
-    `;
-  }
+    `<h3>Riddle One</h3>
+     <p>Where everything started.<br>Two strangers. One message.</p>
+     <input id="ans"><button onclick="check(['instagram','insta','insta dm'])">Continue</button>`,
 
-  if (step === 2) {
-    hearts.innerText = "❤️❤️🤍";
-    game.innerHTML = `
-      <h2>Riddle 2</h2>
-      <p>
-      It’s not your real name,<br>
-      but it feels more real when I say it.<br><br>
-      It’s small, it’s cute,<br>
-      and it’s the name I use only for you.<br><br>
-      What do I call you?
-      </p>
-      <input id="ans"/>
-      <button onclick="check(['chuhi'])">Submit</button>
-      <div class="hint">The name I say when I’m smiling</div>
-    `;
-  }
+    `<h3>Riddle Two</h3>
+     <p>Not your real name,<br>but the one I use only for you.</p>
+     <input id="ans"><button onclick="check(['chuhi'])">Continue</button>`,
 
-  if (step === 3) {
-    hearts.innerText = "❤️❤️❤️";
-    game.innerHTML = `
-      <h2>Riddle 3</h2>
-      <p>
-      I get jealous sometimes,<br>
-      but I never stop choosing you.<br><br>
-      When you call me baby,<br>
-      the world goes quiet.<br><br>
-      Say my name.
-      </p>
-      <input id="ans"/>
-      <button onclick="check(['gurveer'])">Submit</button>
-    `;
-  }
+    `<h3>Riddle Three</h3>
+     <p>When you call me baby,<br>everything goes quiet.<br>Say my name.</p>
+     <input id="ans"><button onclick="check(['gurveer'])">Continue</button>`,
 
-  if (step === 4) {
-    setTimeout(()=>music.play(), 2000);
-    game.innerHTML = `
-      <h2>Under the Same Sky</h2>
-      <p style="text-align:left">
-      Under this sky, even when miles sit between us, I feel you close.<br><br>
+    `<h2>Under the Same Sky</h2>
+     <p>
+     Even with miles between us, I feel you close.<br><br>
+     I know I stumble sometimes. Jealousy speaks when it shouldn’t,
+     only because I don’t want to lose you.<br><br>
+     Even when things get messy,
+     I still choose you.<br><br>
+     Happy New Year, Chuhi ❤️<br>— Gurveer
+     </p>
+     <button>Start our new year ❤️</button>
+     <p id="midnight"></p>`
+  ];
 
-      This year showed me how one person’s presence can change everything.
-      You didn’t arrive loudly. You stayed gently.<br><br>
-
-      I know I’ve stumbled. Jealousy spoke when it shouldn’t have,
-      not because I doubt you, but because I don’t want to lose you.<br><br>
-
-      Even when we fight. Even when it’s messy.
-      I still choose you.<br><br>
-
-      I promise presence. Consistency.
-      Love that stays.<br><br>
-
-      Happy New Year, Chuhi ❤️<br>
-      — Gurveer
-      </p>
-
-      <button onclick="alert('This is only the beginning ❤️')">Start our new year ❤️</button>
-
-      <div class="midnight" id="midnight"></div>
-    `;
-    checkMidnight();
-  }
+  hearts.innerText = ["❤️🤍🤍","❤️❤️🤍","❤️❤️❤️","❤️❤️❤️","❤️❤️❤️"][step];
+  game.innerHTML = pages[step];
+  if(step===4) checkMidnight();
 }
 
-function next() {
+function start(){
+  music.play();
   step++;
   render();
 }
 
-function check(correct) {
-  const val = document.getElementById("ans").value.toLowerCase().trim();
-  if (correct.includes(val)) {
-    step++;
-    render();
-  } else {
-    alert("Almost… think with your heart 💛");
-  }
+function check(arr){
+  const v=document.getElementById("ans").value.toLowerCase().trim();
+  if(arr.includes(v)){ step++; render(); }
 }
 
-function toggleMusic() {
-  music.paused ? music.play() : music.pause();
+function toggleMusic(){ music.paused?music.play():music.pause(); }
+
+function showEgg(){
+  document.body.insertAdjacentHTML("beforeend",
+  `<div class="modal" onclick="this.remove()">
+     <div class="modal-content">
+       <p>You notice the little things.<br>That’s why I fell for you.</p>
+     </div>
+   </div>`);
 }
 
-function checkMidnight() {
-  const now = new Date();
-  const midnight = new Date();
-  midnight.setHours(24,0,0,0);
-
-  const diff = midnight - now;
-
-  if (diff <= 0) {
-    document.getElementById("midnight").innerHTML =
+function checkMidnight(){
+  const now=new Date(), m=new Date();
+  m.setHours(24,0,0,0);
+  if(m-now<=0)
+    document.getElementById("midnight").innerText =
       "✨ It’s midnight. And I still choose you. Always.";
-  } else {
-    setTimeout(checkMidnight, diff);
-  }
+  else setTimeout(checkMidnight,m-now);
 }
 </script>
+
 </body>
 </html>
