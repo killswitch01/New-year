@@ -161,47 +161,47 @@ function render() {
     `;
   }
 
+  if (step === 3) {
+    hearts.innerText = "❤️❤️❤️";
+    game.innerHTML = `
+      <h3>Riddle 3</h3>
+      <p>
+      When you call me baby,<br>
+      everything goes quiet.<br>
+      Say my name.
+      </p>
+      <input id="ans">
+      <button onclick="check(['gurveer'])">Submit</button>
+    `;
+  }
+
   if (step === 4) {
-  setTimeout(()=>music.play(), 2000);
-  game.innerHTML = `
-    <h2>Under the Same Sky</h2>
-    <p style="text-align:left">
-    Another year ends tonight,<br>
-    and somehow, you’re the thought that stays.<br><br>
+    document.body.style.overflow = "auto"; /* 📜 FIX */
+    game.innerHTML = `
+      <h2>Under the Same Sky</h2>
+      <p>
+      Even with miles between us, I feel you close.<br><br>
 
-    In a world that moves too fast,
-    you became my pause — the calm place my heart
-    keeps coming back to.<br><br>
+      This year showed me how one person can change everything.<br><br>
 
-    We didn’t plan this.
-    We didn’t rush it.
-    It just happened… softly, honestly,
-    and then all at once.<br><br>
+      I know I’ve stumbled. Jealousy spoke louder than it should,
+      not because I doubt you—but because I don’t want to lose you.<br><br>
 
-    I don’t know what this new year will bring,
-    but I know what I want to bring into it —
-    you, your smile, your late replies,
-    and the way you make ordinary moments feel special.<br><br>
+      Even when we fight. Even when it’s messy.<br>
+      I still choose you.<br><br>
 
-    So here’s to us.
-    To more conversations,
-    more laughter,
-    more choosing each other,
-    even on the quiet days.<br><br>
+      Happy New Year, Chuhi ❤️<br>
+      — Gurveer
+      </p>
 
-    Happy New Year, my Chuhi ❤️<br>
-    I’m really glad you’re here.<br><br>
+      <button onclick="alert('✨ This is only the beginning ✨')">
+        Start our new year ❤️
+      </button>
 
-    — Gurveer
-    </p>
-
-    <button onclick="alert('This year… we write it together ❤️')">
-      Start our new year ❤️
-    </button>
-
-    <div class="midnight" id="midnight"></div>
-  `;
-  checkMidnight();
+      <p id="midnight"></p>
+    `;
+    checkMidnight();
+  }
 }
 
 function start() {
